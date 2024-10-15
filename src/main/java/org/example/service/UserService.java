@@ -33,4 +33,13 @@ public class UserService {
         userRepository.delete(persona);
     }
 
+    public void pruebaBoolean(){
+        boolean operador = true;
+        int num = 0;
+        String o = operador ? "true": "false"; //esta linea es un if
+
+        o = num == 1 ? "true": "false"; //esta linea es un if
+
+    }
+
 }

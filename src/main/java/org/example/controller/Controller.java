@@ -16,9 +16,8 @@ public class Controller {
     private UserService userService;
 
     @GetMapping()
-    public String home(){
+    public String home() {
         System.out.println("INIT home");
-        pruebaBoolean();
         return "home.html";
     }
 
@@ -52,15 +51,6 @@ public class Controller {
     @DeleteMapping("/delete") //Pendiente por terminar
     public String delete(String parametro) {
         return "String: DELETE";
-    }
-
-    public void pruebaBoolean(){
-        boolean operador = true;
-        int num = 0;
-        String o = operador ? "true": "false"; //esta linea es un if
-
-        o = num == 1 ? "true": "false"; //esta linea es un if
-
     }
 }
 
