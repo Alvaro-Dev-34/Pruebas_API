@@ -1,11 +1,10 @@
 package org.example.controller;
 
-import org.example.model.Persona;
-import org.example.service.UserService;
+import org.example.model.Pizza;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.client.RestTemplate;
 
 //@RestController()
 @RestController
@@ -13,44 +12,39 @@ import java.util.List;
 public class Controller {
 
     @Autowired
-    private UserService userService;
+    private RestTemplate restTemplate;
 
-    @GetMapping()
-    public String home() {
-        System.out.println("INIT home");
-        return "home.html";
+    @GetMapping("/pizza200")
+    public ResponseEntity<byte[]> pizza200() {
+        System.out.println("INIT pizza200");
+
+        String url = "https://status.pizza/200";
+        ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
+
+        System.out.println("FIN pizza200");
+        return response;
     }
 
-    @GetMapping("/prueba2")
-    public String index2() {
-        System.out.println("INIT index2");
-        return "index2.html";
-    }
-    @PostMapping("/post")
-    public Persona post(@RequestBody Persona persona) {
-        System.out.println("INIT post");
-        System.out.println("Persona: " + persona.getId() + ", " +persona.getNombre()+ ", " + persona.getEdad());
 
-        try {
-            Persona personaResponse = userService.postPersona(persona);
-            System.out.println("FIN postPersona");
+    @PostMapping("/pizza")
+    public ResponseEntity<byte[]> pizza(@RequestBody Pizza pizza) {
+        System.out.println("INIT pizza");
 
-            return personaResponse;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        String url = pizza.getUrl();
+        ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);
 
-        System.out.println("FIN post");
-        return null;
+        System.out.println("FIN pizza");
+        return response;
     }
-    @GetMapping("/getAll")
-    public List<Persona> getAll() {
-        List<Persona> personaList = userService.getAllPersonas();
-        return personaList;
-    }
-    @DeleteMapping("/delete") //Pendiente por terminar
-    public String delete(String parametro) {
-        return "String: DELETE";
+
+
+    public void pruebaBoolean(){
+        boolean operador = true;
+        int num = 0;
+        String o = operador ? "true": "false"; //esta linea es un if
+
+        o = num == 1 ? "true": "false"; //esta linea es un if
+
     }
 }
 
